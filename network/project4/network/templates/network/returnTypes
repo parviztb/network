@@ -1,0 +1,144 @@
+
+Django uses request and response objects to pass state through the system.
+When a page is requested, Django creates an HttpRequest object that contains metadata about the request. 
+Then Django loads the appropriate view, passing the HttpRequest as the first argument to the view function. 
+Each view is responsible for returning an HttpResponse object.
+This document explains the APIs for HttpRequest and HttpResponse objects, 
+which are defined in the django.http module.
+
+return HttpResponseRedirect(reverse("index"))
+
+ return render(request, "network/login.html", {
+                "message": "Invalid username and/or password."
+return render(request=request, template_name="auctions/upload.html", 
+     context={'form':form, 'movies':movies})
+
+return HttpResponseRedirect(reverse("index"))
+
+>> from django.http import HttpResponse
+>>> response = HttpResponse("Here's the text of the web page.")
+>>> response = HttpResponse("Text only, please.", content_type="text/plain")
+>>> response = HttpResponse(b'Bytestrings are also accepted.')
+>>> response = HttpResponse(memoryview(b'Memoryview as well.'))
+
+>>> response = HttpResponse()
+>>> response.write("<p>Here's the text of the web page.</p>")
+>>> response.write("<p>Here's another paragraph.</p>")
+
+
+
+cheat sheet - code snipet
+https://www.codegrepper.com/code-examples/python/django+datetimefield+default+value
+
+
+from datetime import datetime
+
+# datetime object containing current date and time
+now = datetime.now()
+ 
+print("now =", now)
+
+# dd/mm/YY H:M:S
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+print("date and time =", dt_string)	
+You will gate output like below.
+
+now = 2021-06-25 07:58:56.550604
+date and time = 25/06/2021 07:58:56
+
+//hid all except one
+<div class="image" data-imageId="0">
+  ...image...
+</div>
+<div class="image" data-imageId="1" style="display: none;">
+  ...image...
+</div>
+<div class="image" data-imageId="2" style="display: none;">
+  ...image...
+</div>
+<!-- The style attribute in these element hides the element by default,
+     while still allowing jQuery to show them using show(). -->
+And then the JS:
+
+$(".thumbnail").click(function() {
+   // Hides all images.
+   $(".image").hide();
+
+   // Shows appropriate one.
+   var imageId = $(this).data("imageId"); // Fetches the value of the data-imageId attribute.
+   $(".image[data-imageId="+imageId+"]").show();
+});
+
+
+
+<button onclick="myFunction()">Click Me</button>
+
+<div id="myDIV">
+  This is my DIV element.
+</div>
+
+
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
+
+
+ //document.querySelector('#compose-view').style.display = 'none';  //orginal=none
+         // document.querySelector('#S_compose-view').style.display = 'none';  //
+          // Show the mailbox label
+          //document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+       //}
+       //add this in index section where there will be a submit after post has been updated and submit
+       function savereply() { 
+          alert('savereply');
+
+          document.getElementById("S_compose-form").addEventListener("submit", function(e){
+            
+            e.preventDefault();  });
+        
+          //var url = '/'
+          var sub = document.getElementById("S_compose-subject").value;   alert('sub :'+sub);
+          var recipients = document.getElementById("S_compose-recipients").value;alert('recipients :'+sub);
+          var body = document.getElementById("S_compose-body").value;
+          //var user_org = ''
+          var user_org = document.getElementById("S_usr").value; alert (user_org);
+          /*
+          if (document.getElementById("S_usr").value == request.user )
+            {user_org = request.user; }
+          else{
+            user_org = document.getElementById("S_usr").value; 
+            alert (user_org);} */
+
+          const formData = new FormData();
+          formData.append("sender",user_org );
+          formData.append("subject",sub );
+          formData.append("recipients",recipients );
+          //alert(formData.recipients);
+          formData.append("body",body );
+          formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+          var myList = document.querySelector('ul');
+          fetch('emails' , { 
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Success:', data); }) 
+          //.then(function(json) {
+            //   console.log('Success:', data);
+        //    load_mailbox('inbox');
+          // }) 
+          // })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+
+          //});
+   //}
+                 

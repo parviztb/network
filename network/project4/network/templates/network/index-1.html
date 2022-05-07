@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+
+    <form id="compose-form" method="post" action= "{% url 'addpost' %}"  >
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="px-5">
+          <div class="row">
+            <div class="col-sm-8" >
+                <div class="form-group">
+                       Author:<label for="title">Your name: </label>
+                       <input id="title" type="text" name="title" class="form-control" maxlength="100">
+               
+                 
+                <label for="comment">Comment:</label>
+                <!--input type="text"  class="form-control"  id="comment" name="comment"  maxlength="300"-->
+                <textarea  class="form-control"  id="comment" name="comment"  rows="4" maxlength="300"></textarea>
+                <br> 
+              </div>
+              
+                <input type="submit" class="btn btn-secondary" value="Add Post" class="btn" id="Post"/>
+            </div>
+          </div>
+         </div>
+        </div>
+    </form>
+    {% endif %}
+    <div id="Posts-view">
+        <h3> All Posts</h3>
+        <ul>
+        {% for entry  in post %}
+          <li>   
+             author: {{ entry.author }}   --> {{entry.title}} 
+         
+          </li>
+        {% endfor %} 
+      </ul>
+    </div>
+ 
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .green{
+                background-color: greenyellow;
+            }
+            .blue{
+                background-color: orange;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="green" data-fruit='12555' id="111">Box 1</div>
+        <div class="green" data-fruit='98989' id="222" >Box 2</div>
+
+        <div id='strawberry-plant' data-fruit=12>aaa</div>
+        <div id='strawberry-plant' data-fruit=1552>ttbbb</div>
+        <script>
+            // 'Getting' data-attributes using getAttribute
+            //var plant = document.getElementsByClassName('green');
+            //var fruitCount = plant.getAttribute('data-fruit') ; // fruitCount = '12'
+            /*  
+            var plant = document.getElementById('strawberry-plant');
+            var fruitCount = plant.getAttribute('data-fruit');
+            alert(fruitCount)
+           
+            /*getting data by id 
+             var elms = document.querySelectorAll("[id='strawberry-plant']")
+                for(var i = 0; i < elms.length; i++) {
+                   //elms[i].style.display='none'; 
+                     var el = elms[i].getAttribute('data-fruit'); 
+                     alert (el);
+                }// <-- whatever you need to do here.
+             */
+            //getting data by class 
+             var elms = document.querySelectorAll  getElementsByClassName('green');
+             querySelectorAll("[id='strawberry-plant']")
+                for(var i = 0; i < elms.length; i++) {
+                   //elms[i].style.display='none'; 
+                     var el = elms[i].getAttribute('data-fruit'); 
+                     alert (el);
+                }
+           
+
+
+
+              //https://stackoverflow.com/questions/3607291/javascript-and-getelementbyid-for-multiple-elements-with-the-same-id
+            // 'Setting' data-attributes using setAttribute
+            //plant.setAttribute('data-fruit', '7'); // Pesky birds
+        </script>   
+        
+    </body>

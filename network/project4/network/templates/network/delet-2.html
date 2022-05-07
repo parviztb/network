@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!--h1 id="myH1" class="democlass">The Element Object</h1>
+<h1 id="myH2" class="democlass">The Element </h1-->
+<div id="myH1" class="democlass">  Right on Top
+   <div id="myH2" class="subclass1">The Element-myH2 </div>
+   <div id="myH3" class="subclass1">The Element - myH3 </div>
+   <div id="myH4" class="subclass1">The Element - myH4 </div>
+   <div  class="txt" id="txtArea">
+        <input class="form-control"  type="textarea"  id="comment"   value="text Area text"
+               readonly  rows="4" COLS="50" wrap="hard" maxlength="200" ></input>
+        <input class="form-control"  type="textarea"  id="comment-2"   value="text Area text two"
+               readonly  rows="4" COLS="50" wrap="hard" maxlength="200" ></input>
+  </div>
+</div>
+
+<h2>The getAttribute() Method</h2>
+<p>The value of the class attribute of the h1 element is:</p>
+<p id="demo"></p>
+
+<script>
+    const element = document.getElementsByClassName('democlass')
+      alert(element.length); 
+      IDS= [];
+      //Get the first element with a class of 'test', or undefined if there is no matching element:
+       //document.getElementsByClassName('test')[0]
+       for (var i = 0 ; i<element.length; i++) {
+            var x = element[i].getAttribute("id");
+            if (x=="myH1") {
+                let tags = element[i].querySelectorAll(".democlass div");
+                for (const tag of tags){
+                     //alert(tag.className);
+                     alert(tag.id);
+                     if (tag.id == "txtArea"){
+                        alert("found it");
+                        const inputElements = tag.querySelectorAll("input, textarea");
+                        alert(inputElements.length);
+                        //var elements = document.querySelectorAll("#my-form input[type=text]")
+                        for (var i = 0;inputElements.length; i++ ) {
+                                alert(inputElements[i].value);
+                                alert(inputElements[i].id);
+                            }
+                       
+                     }
+                }
+                 
+                if (element[i].style.display === "none") {
+                    element[i].style.display = "block";
+                    
+                } else {
+                    element[i].style.display = "none";
+                }
+            }
+        IDS[i] = element[i].getAttribute("id");
+        alert(IDS[i]);
+    }
+    /*
+      IDS= [];
+    for (var i = 0 ; i<element.length; i++) {
+        IDS[i] = element[i].getAttribute("id");
+    }
+   // let text = element[0].getAttribute("id");
+   for (var j=0 ; j< IDS.length; j++){
+       alert(IDS[j]);
+   }
+  */
+</script>
+
+</body>
+</html>
+
+/*const element = document.getElementById("myH1"); 
+//let text = element.getAttribute("class"); 
+document.getElementById("demo").innerHTML = text; 
+Or 
+const element = document.getElementsByClassName("democlass"); 
+alert (element.getAttribute("id"))
+*/

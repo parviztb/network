@@ -1,0 +1,130 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <form id="compose-form" method="post" action= "{% url 'addpost' %}"  >
+      {% csrf_token %}
+      <div class="form-group">
+        <div class="px-5">
+          <div class="row">
+            <div class="col-sm-8" >
+                <div class="form-group">
+                     <label for="title">Title: </label>
+                       <input id="title" type="text" name="title" class="form-control" maxlength="100">
+
+                <label for="comment">Comment:</label>
+                <!--input type="text"  class="form-control"  id="comment" name="comment"  maxlength="300"-->
+                <textarea  class="form-control"  id="comment" name="comment"  rows="4" COLS="50" wrap="hard" maxlength="200"></textarea>
+          
+              </div>
+                <input type="submit" class="btn btn-danger" value="Add Post" class="btn" />
+            </div>
+          </div>
+         </div>
+        </div>
+    </form>
+    {% endif %}
+        <h3> <strong>     All Posts</strong></h3>
+        {% for entry  in post %}
+        <div class = "postNumber" id="{{entry.id}}">
+          <div class="px-5" >
+              <div class="row">
+                <div class="col-sm-8" >
+                  <p style="background-color: rgb(168, 246, 246); font-size: small; white-space:pre-line;">
+                  <form method="post" action= "{% url 'index' %}" enctype="multipart/form-data" id="pst">
+                  
+                      <input type="hidden" id=postId name=postId   value={{entry.id}}>
+                      <input type="button" value="Edit"  class="btn btn-secondary" onclick="setSn('{{entry.id}}');" id="edit">
+                      <br>
+                        {{ entry.author }}   - {{entry.title}} <br>
+                    <div  class="txt" id="txtArea">
+                        <input class="form-control"  type="textarea"  id="comment"   value="{{ entry.des_content }}"
+                            readonly  rows="4" COLS="50" wrap="hard" maxlength="200" ></input>
+                    </div>
+                        <!--textarea  class="form-control"  id="comment" name="comment"   
+                             rows="4" COLS="50" wrap="hard" maxlength="200" readonly="true"> {{ entry.des_content }}</textarea> <br-->
+                        Likes: {{entry.likes}}  <br> 
+                        <strong>{{entry.created_on}}</strong>
+                        <input type="button" value="update"  id="update" class="btn btn-secondary" onclick="updatePost('{{entry.id}}');"  >
+                  </form>
+                </p>
+                </div>
+              </div>
+          </div>
+      </div>
+        {% endfor %}
+ 
+      <script>
+
+          function setSn(entry){  
+            alert(entry);  
+            const element = document.getElementsByClassName('postNumber');
+        
+            //var collection = document.getElementsByClassName("top");
+            //alert(collection[0].id); gives you the id
+                 for (var i = 0 ; i<element.length; i++) {
+                    var x = element[i].getAttribute("id");
+                        if (x==entry) {
+                            //if (element[i].style.display === "none") {
+                                //y = element[i];
+                                element[i].style.display = "block";
+                                //let tags = element[i].querySelectorAll(".postNumber div");
+                                const inputElements =element[i].querySelectorAll("input,textarea");
+                                for (var j = 0;j< inputElements.length; j++ ) {
+                                    //alert(inputElements[j].value);
+                                    if (inputElements[j].type == "text" ){
+                                        //alert("it is text input");
+                                       inputElements[j].removeAttribute('readonly');
+                                      }
+ 
+                                }
+                   
+                        }else {
+                                element[i].style.display = "none";    
+                        }
+                 }
+          }
+         function updatePostt(entry) {     document.getElementById('ALL').click();}
+         function updatePost(entry) {
+           alert(entry);  
+           let postId=entry;
+            const element = document.getElementsByClassName('postNumber');
+            let postComment;
+                 for (var i = 0 ; i<element.length; i++) {
+                    var x = element[i].getAttribute("id");
+                    if (x==entry) {
+                       const inputElements =element[i].querySelectorAll("input,textarea");
+                        for (var j = 0;j< inputElements.length; j++ ) {
+                            //alert(inputElements[j].value);
+                            if (inputElements[j].type == "text" ){
+                                // alert(inputElements[j].value);
+                                // alert( element[i].id);
+                                 postComment = inputElements[j].value;
+                                 //alert( 'postComment: ' + postComment);
+                            }
+                        }
+                    }
+                  }
+           const formData = new FormData();
+           formData.append("postId",postId );
+           formData.append("postComment",postComment);
+           formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            fetch('updatepost' , { 
+                method: 'POST',
+                body: formData
+                })
+            .then(response => response.json())
+            .then(data => {
+               console.log('Success:', data);}) 
+            .catch(error => {
+            console.error('Error:', error);
+            }); document.getElementById('ALL').click();
+         }  
+        
+      </script>
+
+
+  }
+
+{% endblock %}
